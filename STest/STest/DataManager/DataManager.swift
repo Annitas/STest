@@ -45,7 +45,6 @@ final class DataManager {
             }
             
             let rateObj = Rate(from: from, to: to, rate: rate)
-            print("Loaded rate: \(rateObj)")
             return rateObj
         }
     }
