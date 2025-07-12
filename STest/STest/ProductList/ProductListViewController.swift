@@ -11,7 +11,7 @@ final class ProductListViewController: UIViewController {
     private let viewModel = ProductListViewModel()
     private let tableView: UITableView = {
         let tv = UITableView()
-        tv.backgroundColor = .white
+        tv.translatesAutoresizingMaskIntoConstraints = false
         return tv
     }()
     
@@ -24,7 +24,6 @@ final class ProductListViewController: UIViewController {
     private func setupUI() {
         title = "Products"
         view.backgroundColor = .systemBackground
-        tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
         
         NSLayoutConstraint.activate([
