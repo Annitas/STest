@@ -53,4 +53,10 @@ extension ProductListViewController: UITableViewDelegate, UITableViewDataSource 
         cell.textLabel?.text = product
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        let product = viewModel.products[indexPath.row]
+    }
 }

@@ -6,7 +6,13 @@
 //
 
 final class ProductListViewModel {
+    private let transactions: [Transaction]
+    
     var products: [String] {
-        return ["ABOBA", "LOLO", "MEOW"]
+        return Set(transactions.map { $0.sku }).sorted()
+    }
+    
+    init() {
+        self.transactions = DataManager.shared.loadTransactions()
     }
 }
