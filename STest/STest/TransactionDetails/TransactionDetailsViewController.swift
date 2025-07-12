@@ -75,7 +75,7 @@ extension TransactionDetailsViewController: UITableViewDataSource, UITableViewDe
         let cell = tableView.dequeueReusableCell(withIdentifier: "TransactionCell", for: indexPath) as! ProductListCell
         let detail = viewModel.transactionDetails[indexPath.row]
         
-        let originalAmount = String(format: "%.2f %@", detail.transaction.amount, detail.transaction.currency)
+        let originalAmount = String(format: "%@%.2f", currencySymbol(detail.transaction.currency), detail.transaction.amount)
         let gbpAmount: String
         
         if let gbp = detail.gbpAmount {
@@ -86,5 +86,15 @@ extension TransactionDetailsViewController: UITableViewDataSource, UITableViewDe
         
         cell.configure(title: originalAmount, subtitle: gbpAmount)
         return cell
+    }
+    
+    func currencySymbol(_ currencyCode: String) -> String {
+        switch currencyCode {
+        case "USD": return "$"
+        case "GBP": return "£"
+        case "AUD": return "A$"
+        case "CAD": return "CA$"
+        default:    return "\(currencyCode) "
+        }
     }
 }
