@@ -8,5 +8,5 @@
 struct Transaction {
     let sku: String
     let currency: String
-    let amount: String
+    let amount: Double
 }

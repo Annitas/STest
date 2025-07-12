@@ -58,5 +58,8 @@ extension ProductListViewController: UITableViewDelegate, UITableViewDataSource 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let product = viewModel.products[indexPath.row]
+        let detailsViewModel = viewModel.getTransactionDetails(for: product)
+        let detailsVC = TransactionDetailsViewController(viewModel: detailsViewModel, productSKU: product)
+        navigationController?.pushViewController(detailsVC, animated: true)
     }
 }
