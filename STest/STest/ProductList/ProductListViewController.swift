@@ -38,7 +38,7 @@ final class ProductListViewController: UIViewController {
     private func setupTableView() {
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "ProductCell")
+        tableView.register(ProductListCell.self, forCellReuseIdentifier: "ProductCell")
     }
 }
 
@@ -48,15 +48,15 @@ extension ProductListViewController: UITableViewDelegate, UITableViewDataSource 
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ProductCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ProductCell", for: indexPath) as! ProductListCell
         let product = viewModel.products[indexPath.row]
-        cell.textLabel?.text = product
+        let transactionsCount = viewModel.transactionCount(for: product)
+        cell.configure(title: product, subtitle: "\(transactionsCount) transactions")
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        
         let product = viewModel.products[indexPath.row]
     }
 }

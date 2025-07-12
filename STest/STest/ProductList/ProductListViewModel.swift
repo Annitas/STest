@@ -15,4 +15,8 @@ final class ProductListViewModel {
     init() {
         self.transactions = DataManager.shared.loadTransactions()
     }
+    
+    func transactionCount(for sku: String) -> Int {
+        return transactions.filter { $0.sku == sku }.count
+    }
 }
