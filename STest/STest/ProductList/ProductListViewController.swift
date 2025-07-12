@@ -15,22 +15,38 @@ final class ProductListViewController: UIViewController {
         return tv
     }()
     
+    private let emptyLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Oops, product list is empty"
+        label.font = .systemFont(ofSize: 18)
+        label.textColor = .secondaryLabel
+        label.textAlignment = .center
+        label.isHidden = true
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
         setupTableView()
+        updateEmptyLabelVisibility()
     }
     
     private func setupUI() {
         title = "Products"
         view.backgroundColor = .systemBackground
         view.addSubview(tableView)
+        view.addSubview(emptyLabel)
         
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            
+            emptyLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            emptyLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
     }
     
@@ -38,6 +54,10 @@ final class ProductListViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(ProductListCell.self, forCellReuseIdentifier: "ProductCell")
+    }
+    
+    private func updateEmptyLabelVisibility() {
+        emptyLabel.isHidden = !viewModel.products.isEmpty
     }
 }
 
